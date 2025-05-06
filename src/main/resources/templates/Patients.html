@@ -11,6 +11,12 @@
         <div class="card">
             <div class="card-header fw-semibold fs-4">Liste des Patients</div>
             <div class="card-body">
+                <form method="get" th:action="@{index}">
+                    <div class="input-group mb-3 w-50">
+                        <input type="text" class="form-control" placeholder="Rechercher un patient" name="keyword" th:value="${keyword}">
+                        <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+                    </div>
+                </form>
                 <table class="table">
                     <thead>
                     <tr>
@@ -35,7 +41,7 @@
                     <li th:each="page,status:${pages}" class="me-1">
                         <a th:text="${status.index}"
                            th:class="${currentPage==status.index ? 'btn btn-info' : 'btn btn-outline-info'}"
-                           th:href="@{/index(page=${status.index})}">
+                           th:href="@{/index(page=${status.index}, keyword=${keyword})}">
                         </a>
                     </li>
                 </ul>
