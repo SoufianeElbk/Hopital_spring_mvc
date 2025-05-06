@@ -24,17 +24,17 @@ public class HopitalApplication implements CommandLineRunner {
         // No arguments constructor
         Patient patient1 = new Patient();
         patient1.setId(null);
-        patient1.setName("Soufiane");
+        patient1.setName("Soufiane Elboubkari");
         patient1.setBirthday(new Date());
         patient1.setSick(false);
         patient1.setScore(23);
 
         // With arguments constructor
-        Patient patient2 = new Patient(null, "Ali", new Date(), true, 20);
+        Patient patient2 = new Patient(null, "Ali Alaoui", new Date(), true, 20);
 
 //        // Using Builder
         Patient patient3 = Patient.builder()
-                .name("Ahmed")
+                .name("Ahmed Mostafa")
                 .birthday(new Date())
                 .isSick(false)
                 .score(25)
