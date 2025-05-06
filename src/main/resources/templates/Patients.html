@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
     <title>Document</title>
 </head>
 <body>
@@ -25,6 +26,7 @@
                         <th>Date de naissance</th>
                         <th>Malade</th>
                         <th>Score</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,12 +36,17 @@
                             <td th:text="${p.birthday}"></td>
                             <td th:text="${p.isSick}"></td>
                             <td th:text="${p.score}"></td>
+                            <td>
+                                <a th:href="@{delete(id=${p.id}, keyword=${keyword}, page=${currentPage})}" class="btn btn-danger" onclick="return confirm('Etes-vous sure?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
                 <ul class="nav nav-pills">
                     <li th:each="page,status:${pages}" class="me-1">
-                        <a th:text="${status.index}"
+                        <a th:text="${status.index}+1"
                            th:class="${currentPage==status.index ? 'btn btn-info' : 'btn btn-outline-info'}"
                            th:href="@{/index(page=${status.index}, keyword=${keyword})}">
                         </a>
