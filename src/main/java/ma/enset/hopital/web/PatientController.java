@@ -3,11 +3,12 @@ package ma.enset.hopital.web;
 import lombok.AllArgsConstructor;
 import ma.enset.hopital.entities.Patient;
 import ma.enset.hopital.repository.PatientRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -15,9 +16,13 @@ public class PatientController {
     private final PatientRepository patientRepository;
 
     @GetMapping("/index")
-    public String index(Model model) {
-        List<Patient> patients = patientRepository.findAll();
-        model.addAttribute("patients", patients);
+    public String index(Model model,
+                        @RequestParam(name = "page", defaultValue = "0") int page,
+                        @RequestParam(name = "size", defaultValue = "5") int size) {
+        Page<Patient> patients = patientRepository.findAll(PageRequest.of(page, size));
+        model.addAttribute("patients", patients.getContent());
+        model.addAttribute("pages", new int[patients.getTotalPages()]);
+        model.addAttribute("currentPage", page);
         return "Patients";
     }
 }

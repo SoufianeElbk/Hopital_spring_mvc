@@ -22,15 +22,23 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="p:${patients}">
-                        <td th:text="${p.id}"></td>
-                        <td th:text="${p.name}"></td>
-                        <td th:text="${p.birthday}"></td>
-                        <td th:text="${p.isSick}"></td>
-                        <td th:text="${p.score}"></td>
-                    </tr>
+                        <tr th:each="p:${patients}">
+                            <td th:text="${p.id}"></td>
+                            <td th:text="${p.name}"></td>
+                            <td th:text="${p.birthday}"></td>
+                            <td th:text="${p.isSick}"></td>
+                            <td th:text="${p.score}"></td>
+                        </tr>
                     </tbody>
                 </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}" class="me-1">
+                        <a th:text="${status.index}"
+                           th:class="${currentPage==status.index ? 'btn btn-info' : 'btn btn-outline-info'}"
+                           th:href="@{/index(page=${status.index})}">
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
