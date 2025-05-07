@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <title>Form Patients</title>
+</head>
+<body>
+    <div layout:fragment="content1">
+        <div class="container p-4">
+            <div class="card">
+                <div class="card-header fw-semibold fs-4">Formulaire Patient</div>
+                <div class="card-body">
+                    <form method="post" th:action="@{save}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="name" name="name" th:value="${patient.name}" required>
+                            <span class="text-danger" th:errors="${patient.name}"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="birthday" class="form-label">Date de naissance</label>
+                            <input type="date" class="form-control" id="birthday" name="birthday" th:value="${patient.birthday}" required>
+                            <span class="text-danger" th:errors="${patient.birthday}"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="isSick" class="form-label">Malade</label>
+                            <input type="checkbox" id="isSick" th:checked="${patient.sick}"  name="isSick">
+                            <span class="text-danger" th:errors="${patient.sick}"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="score" class="form-label">Score</label>
+                            <input type="number" class="form-control" id="score" name="score" th:value="${patient.score}" required>
+                            <span class="text-danger" th:errors="${patient.score}"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
