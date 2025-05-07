@@ -15,7 +15,11 @@
             <div class="card">
                 <div class="card-header fw-semibold fs-4">Formulaire Patient</div>
                 <div class="card-body">
-                    <form method="post" th:action="@{save}">
+                    <form method="post" th:action="@{save(page=${page},keyword=${keyword})}">
+                        <div class="">
+                            <label for="id" class="form-label fs-5 fw-semibold">Patient ID : <span th:text="${patient.id}"></span></label>
+                            <input type="hidden" class="form-control" id="id" name="id" th:value="${patient.id}">
+                        </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Nom</label>
                             <input type="text" class="form-control" id="name" name="name" th:value="${patient.name}" required>
