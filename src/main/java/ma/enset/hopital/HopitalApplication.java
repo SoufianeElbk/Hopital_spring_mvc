@@ -2,6 +2,7 @@ package ma.enset.hopital;
 
 import ma.enset.hopital.entities.Patient;
 import ma.enset.hopital.repository.PatientRepository;
+import ma.enset.hopital.security.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -34,22 +35,26 @@ public class HopitalApplication implements CommandLineRunner {
 //        patient1.setName("Soufiane Elboubkari");
 //        patient1.setBirthday(new Date());
 //        patient1.setSick(false);
-//        patient1.setScore(23);
+//        patient1.setScore(230);
 
         // With arguments constructor
-//        Patient patient2 = new Patient(null, "Ali Alaoui", new Date(), true, 20);
+//        Patient patient2 = new Patient(null, "Ali Alaoui", new Date(), true, 150);
 
 //        // Using Builder
 //        Patient patient3 = Patient.builder()
 //                .name("Ahmed Mostafa")
 //                .birthday(new Date())
 //                .isSick(false)
-//                .score(25)
+//                .score(100)
 //                .build();
-//
+
 //        patientRepository.save(patient1);
 //        patientRepository.save(patient2);
 //        patientRepository.save(patient3);
+
+//        for (int i = 0; i < 100; i++) {
+//            patientRepository.save(new Patient(null, "Patient " + i, new Date(), Math.random() > 0.5, (int) (Math.random() * 100)));
+//        }
     }
 
     @Bean
@@ -57,12 +62,12 @@ public class HopitalApplication implements CommandLineRunner {
         return  new BCryptPasswordEncoder();
     }
 
-    @Bean
+//    @Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
 
-    @Bean
+//    @Bean
     CommandLineRunner commandLineRunner(JdbcUserDetailsManager jdbcUserDetailsManager){
         PasswordEncoder passwordEncoder = passwordEncoder();
 //        return args -> {
@@ -94,6 +99,24 @@ public class HopitalApplication implements CommandLineRunner {
             if (!jdbcUserDetailsManager.userExists("admin2")) {
                 jdbcUserDetailsManager.createUser(User.withUsername("admin2").password(passwordEncoder.encode("1234")).roles("USER", "ADMIN").build());
             }
+        };
+    }
+
+
+//    @Bean
+    CommandLineRunner commandLineRunner2(AccountService accountService) {
+        return args -> {
+            accountService.addNewRole("USER");
+            accountService.addNewRole("ADMIN");
+            accountService.addNewUser("user1", "1234", "user1@gmail.com", "1234");
+            accountService.addNewUser("user2", "1234", "user2@gmail.com", "1234");
+            accountService.addNewUser("admin1", "1234", "admin1@gmail.com", "1234");
+
+            accountService.addRoleToUser("user1", "USER");
+            accountService.addRoleToUser("user2", "USER");
+            accountService.addRoleToUser("admin1", "USER");
+            accountService.addRoleToUser("admin1", "ADMIN");
+
         };
     }
 

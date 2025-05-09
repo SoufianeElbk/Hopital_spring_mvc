@@ -22,6 +22,6 @@ public class Patient {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     private boolean isSick;
-    @DecimalMin("100")
+    @DecimalMin("0")
     private int score;
 }
